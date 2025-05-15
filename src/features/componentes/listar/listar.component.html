@@ -1,0 +1,19 @@
+<!-- Obtener festivos por año -->
+  <mat-card class="card-margin">
+    <mat-card-title>Consultar festivos por año</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Año</mat-label>
+        <input matInput type="number" [(ngModel)]="anioSeleccionado" />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="obtenerFestivos()"
+        [disabled]="isLoading"
+      >
+        {{ isLoading ? "Buscando..." : "Buscar Festivos" }}
+      </button>
+    </mat-card-content>
+  </mat-card>

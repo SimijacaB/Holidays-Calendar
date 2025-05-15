@@ -1,0 +1,15 @@
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card-margin {
+  margin-top: 20px;
+}
+
+.resultado {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #3f51b5; /* Color primario de Angular Material */
+}
