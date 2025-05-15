@@ -42,8 +42,14 @@ export class FestivosService {
     const day = datetime.getDate();
 
     const fullUrl = `${this.url}es-festivo/${year}/${month}/${day}`;
+    console.log('URL de la petición:', fullUrl);
 
-    return this.http.get<boolean>(fullUrl);
+    return this.http.get<boolean>(fullUrl).pipe(
+      map(response => {
+        console.log('Respuesta del servidor:', response);
+        return response;
+      })
+    );
   }
 
 
