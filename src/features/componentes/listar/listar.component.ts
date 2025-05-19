@@ -23,7 +23,7 @@ export class ListarComponent implements OnInit {
   constructor(private festivosService: FestivosService) { }
 
   ngOnInit() {
-    this.obtenerFestivos();
+    // Ya no cargamos los datos automáticamente
   }
 
   obtenerFestivos() {
