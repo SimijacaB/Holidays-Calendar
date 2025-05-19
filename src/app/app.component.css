@@ -1,3 +1,44 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.main-content {
+  flex: 1;
+  margin-top: 64px; /* altura del toolbar */
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.footer-text {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+h1.centrar {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 mat-toolbar {
     background: #004a9f;
     color: white;

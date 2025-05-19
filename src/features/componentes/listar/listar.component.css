@@ -1,15 +1,46 @@
+/* listar.component.css */
 .container {
   padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
+  justify-content: center;
 }
-
 .card-margin {
   margin-top: 20px;
+  justify-content: center;
 }
 
-.resultado {
+.search-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 600px;
+}
+
+.loading-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  color: #666;
+}
+
+.result-message {
   margin-top: 15px;
-  font-weight: bold;
-  color: #3f51b5; /* Color primario de Angular Material */
+  color: #666;
+  font-size: 0.9em;
+}
+
+.mat-form-field {
+  width: 200px;
 }
