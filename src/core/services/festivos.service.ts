@@ -1,35 +1,41 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { map, Observable } from 'rxjs';
-import { Festivo } from '../../shared/entidades/festivo';
+import { Observable } from 'rxjs';
+import { Festivo, TipoFestivo } from '../../shared/entidades/festivo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FestivosService {
-
   private url: string;
-
 
   constructor(private http: HttpClient) {
     this.url = `${environment.urlService}`;
   }
 
   public listar(): Observable<Festivo[]> {
-    return this.http.get<Festivo[]>(`${this.url}listar`)
+    return this.http.get<Festivo[]>(`${this.url}listar`);
   }
 
-  public buscar(opcion: number, dato: string): Observable<Festivo[]> {
-    return this.http.get<Festivo[]>(`${this.url}buscar/${opcion}/${dato}`);
+  public obtener(id: number): Observable<Festivo> {
+    return this.http.get<Festivo>(`${this.url}obtener/${id}`);
   }
 
-  public agregar(Festivo: Festivo): Observable<Festivo> {
-    return this.http.post<Festivo>(`${this.url}agregar`, Festivo);
+  public buscar(tipo: number, dato: string): Observable<Festivo[]> {
+    return this.http.get<Festivo[]>(`${this.url}buscar/${tipo}/${dato}`);
   }
 
-  public modificar(Festivo: Festivo): Observable<Festivo> {
-    return this.http.put<Festivo>(`${this.url}modificar`, Festivo);
+  public agregar(festivo: Festivo): Observable<Festivo> {
+    return this.http.post<Festivo>(`${this.url}agregar`, festivo);
+  }
+
+  public modificar(festivo: Festivo): Observable<Festivo> {
+    return this.http.put<Festivo>(`${this.url}modificar`, festivo);
+  }
+
+  public eliminar(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.url}eliminar/${id}`);
   }
 
   public getFestivosPorAnio(anio: number): Observable<Festivo[]> {
@@ -41,16 +47,18 @@ export class FestivosService {
     const month = datetime.getMonth() + 1;
     const day = datetime.getDate();
 
-    const fullUrl = `${this.url}es-festivo/${year}/${month}/${day}`;
-    console.log('URL de la petición:', fullUrl);
-
-    return this.http.get<boolean>(fullUrl).pipe(
-      map(response => {
-        console.log('Respuesta del servidor:', response);
-        return response;
-      })
-    );
+    return this.http.get<boolean>(`${this.url}es-festivo/${year}/${month}/${day}`);
   }
 
+  public obtenerTiposFestivo(): Observable<TipoFestivo[]> {
+    return this.http.get<TipoFestivo[]>(`${this.url}tipos-festivo`);
+  }
 
+  public buscarAvanzado(param: { nombre?: string, mes?: number, idTipo?: number }): Observable<Festivo[]> {
+    let params = new HttpParams();
+    if (param.nombre) params = params.set('nombre', param.nombre);
+    if (param.mes) params = params.set('mes', param.mes.toString());
+    if (param.idTipo) params = params.set('idTipo', param.idTipo.toString());
+    return this.http.get<Festivo[]>(`${this.url}buscar`, { params });
+  }
 }

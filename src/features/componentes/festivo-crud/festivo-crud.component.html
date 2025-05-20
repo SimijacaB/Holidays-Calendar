@@ -1,0 +1,219 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Gestión de Festivos</mat-card-title>
+    <mat-card-content>
+      <!-- Sección de búsqueda -->
+      <div class="search-section">
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo de búsqueda</mat-label>
+          <mat-select [(ngModel)]="opcionSeleccionada" (selectionChange)="onOpcionBusquedaChange()">
+            <mat-option *ngFor="let opcion of opcionesBusqueda" [value]="opcion.valor">
+              {{ opcion.texto }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar</mat-label>
+          <ng-container *ngIf="opcionSeleccionada === 0">
+            <input
+              matInput
+              [(ngModel)]="terminoBusqueda"
+              placeholder="Ingrese el nombre del festivo"
+            />
+          </ng-container>
+          <ng-container *ngIf="opcionSeleccionada === 1">
+            <mat-select
+              [(ngModel)]="terminoBusqueda"
+              placeholder="Seleccione el tipo de festivo"
+            >
+              <mat-option *ngFor="let tipo of tiposFestivo" [value]="tipo.tipo">
+                {{ tipo.tipo }}
+              </mat-option>
+            </mat-select>
+          </ng-container>
+        </mat-form-field>
+
+        <div class="search-buttons">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="buscarFestivos()"
+            [disabled]="isLoading"
+          >
+            Buscar
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="cargarTodos()"
+            [disabled]="isLoading"
+          >
+            Ver Todos
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón para nuevo festivo -->
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="nuevoFestivo()"
+        [disabled]="isLoading"
+      >
+        Nuevo Festivo
+      </button>
+
+      <!-- Formulario de edición -->
+      <div *ngIf="modoEdicion && festivoSeleccionado" class="form-container">
+        <form (ngSubmit)="guardarFestivo()" #festivoForm="ngForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre del Festivo</mat-label>
+            <input
+              matInput
+              [(ngModel)]="festivoSeleccionado.nombre"
+              name="nombre"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Día</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="festivoSeleccionado.dia"
+              name="dia"
+              min="1"
+              max="31"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Mes</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="festivoSeleccionado.mes"
+              name="mes"
+              min="1"
+              max="12"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Días después de Pascua</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="festivoSeleccionado.diasPascua"
+              name="diasPascua"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Tipo de Festivo</mat-label>
+            <mat-select [(ngModel)]="festivoSeleccionado.idTipo" name="idTipo" required>
+              <mat-option *ngFor="let tipo of tiposFestivo" [value]="tipo.id">
+                {{tipo.tipo}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="button-container">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!festivoForm.form.valid || isLoading"
+            >
+              {{ festivoSeleccionado.id === 0 ? "Agregar" : "Guardar" }}
+            </button>
+            <button
+              mat-button
+              type="button"
+              (click)="cancelarEdicion()"
+              [disabled]="isLoading"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tabla de festivos -->
+      <div class="table-container" *ngIf="!modoEdicion">
+        <table mat-table [dataSource]="festivos" class="mat-elevation-z8">
+          <!-- Columna Nombre -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let festivo">{{ festivo.nombre }}</td>
+          </ng-container>
+
+          <!-- Columna Fecha -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let festivo">
+              {{ festivo.dia }}/{{ obtenerNombreMes(festivo.mes) }}
+            </td>
+          </ng-container>
+
+          <!-- Columna Tipo -->
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let festivo">{{ festivo.idTipo }}</td>
+          </ng-container>
+
+          <!-- Columna Acciones -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let festivo">
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="seleccionarFestivo(festivo)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="eliminarFestivo(festivo.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="['nombre', 'fecha', 'tipo', 'acciones']"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: ['nombre', 'fecha', 'tipo', 'acciones']
+            "
+          ></tr>
+        </table>
+      </div>
+
+      <!-- Mensajes de estado -->
+      <div *ngIf="isLoading" class="loading-message">
+        <mat-spinner diameter="30"></mat-spinner>
+        Procesando...
+      </div>
+
+      <div *ngIf="mensajeResultado" class="success-message">
+        {{ mensajeResultado }}
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

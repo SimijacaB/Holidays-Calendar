@@ -1,3 +1,8 @@
+export interface TipoFestivo {
+    id: number;
+    tipo: string;
+}
+
 export interface Festivo {
     id: number;     
     nombre: string;
@@ -5,6 +10,7 @@ export interface Festivo {
     mes: number;
     diasPascua?: number;
     idTipo: number;
+    tipoFestivo?: TipoFestivo;
     fecha?: Date;
 }
 
