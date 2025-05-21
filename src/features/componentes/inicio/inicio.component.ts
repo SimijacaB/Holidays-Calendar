@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FestivosService } from '../../../core/services/festivos.service';
+import { FestivosService } from '../../../core/services/festivoService/festivos.service';
 import { ReferenciasMaterialModule } from '../../../shared/modulos/referencias-material.module';
 
 @Component({

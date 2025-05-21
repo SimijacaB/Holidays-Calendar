@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReferenciasMaterialModule } from '../../../shared/modulos/referencias-material.module';
-import { FestivosService } from '../../../core/services/festivos.service';
+import { FestivosService } from '../../../core/services/festivoService/festivos.service';
 import { Festivo, TipoFestivo } from '../../../shared/entidades/festivo';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';

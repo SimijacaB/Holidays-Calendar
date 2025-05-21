@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { Festivo, TipoFestivo } from '../../shared/entidades/festivo';
+import { Festivo, TipoFestivo } from '../../../shared/entidades/festivo';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class FestivosService {
   private url: string;
 
   constructor(private http: HttpClient) {
-    this.url = `${environment.urlService}`;
+    this.url = `${environment.urlService}festivos/`;
   }
 
   public listar(): Observable<Festivo[]> {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReferenciasMaterialModule } from '../../../shared/modulos/referencias-material.module';
-import { FestivosService } from '../../../core/services/festivos.service';
+import { FestivosService } from '../../../core/services/festivoService/festivos.service';
 import { Festivo } from '../../../shared/entidades/festivo';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
