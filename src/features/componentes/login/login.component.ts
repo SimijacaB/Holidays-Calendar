@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../core/services/loginService/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<LoginComponent>
   ) {
     // Si el usuario ya está autenticado, redirigir al inicio
     if (this.loginService.isAuthenticated()) {
@@ -44,7 +46,7 @@ export class LoginComponent {
           this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', {
             duration: 3000
           });
-          this.router.navigate(['/inicio']);
+          this.dialogRef.close({ usuario: this.nombreUsuario, clave: this.clave });
         } else {
           this.snackBar.open('Credenciales inválidas', 'Cerrar', {
             duration: 3000

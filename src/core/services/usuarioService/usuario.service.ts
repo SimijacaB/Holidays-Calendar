@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { UsuarioRequestLoginDTO } from '../../../shared/DTOS/UsuarioRequestLoginDTO';
 import { UsuarioResponseLoginDTO } from '../../../shared/DTOS/UsuarioResponseLoginDTO';
 
 @Injectable({

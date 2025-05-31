@@ -14,7 +14,7 @@ import { UsuarioResponseLoginDTO } from '../shared/DTOS/UsuarioResponseLoginDTO'
     RouterOutlet,
     RouterModule,
     ReferenciasMaterialModule,
-    
+
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -50,13 +50,10 @@ export class AppComponent {
               this.autorizacionServicio.guardarToken(response.token);
             },
             error: error => {
-              window.alert(error.message);
+              console.error('Error de autenticación:', error);
             }
           })
         }
-      },
-      error: error => {
-        window.alert(error);
       }
     });
   }
