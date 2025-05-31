@@ -5,9 +5,6 @@ import { LoginComponent } from '../features/componentes/login/login.component';
 import { AutorizacionService } from '../core/services/autorizacion/autorizacion.service';
 import { UsuarioService } from '../core/services/usuarioService/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Usuario } from '../shared/entidades/usuario';
-import { InicioComponent } from '../features/componentes/inicio/inicio.component';
-import { UsuarioRequestLoginDTO } from '../shared/DTOS/UsuarioRequestLoginDTO';
 import { UsuarioResponseLoginDTO } from '../shared/DTOS/UsuarioResponseLoginDTO';
 
 @Component({
@@ -17,7 +14,7 @@ import { UsuarioResponseLoginDTO } from '../shared/DTOS/UsuarioResponseLoginDTO'
     RouterOutlet,
     RouterModule,
     ReferenciasMaterialModule,
-    InicioComponent
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
