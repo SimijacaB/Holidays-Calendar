@@ -7,13 +7,16 @@ import { LoginComponent } from '../features/componentes/login/login.component';
 import { authGuard } from '../core/guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+    { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+    
     { 
         path: 'inicio', 
         component: InicioComponent,
-        canActivate: [authGuard]
+        
     },
+    { 
+        path: 'login', 
+        component: LoginComponent },
     { 
         path: 'listar', 
         component: ListarComponent,

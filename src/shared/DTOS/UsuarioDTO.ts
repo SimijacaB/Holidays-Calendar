@@ -1,4 +1,6 @@
+import { UsuarioRequestLoginDTO } from "./UsuarioRequestLoginDTO"; 
+
 export interface UsuarioDTO {
-    usuario: any;
+    usuario: UsuarioRequestLoginDTO;
     token: string;
 }

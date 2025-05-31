@@ -1,4 +1,41 @@
-<mat-toolbar>
-      <div class="centrar">Festivos en Colombia</div>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #menuLateral>
+    <mat-nav-list>
+      <div *ngFor="let opcion of opciones">
+        <div
+          class="menu-button"
+          [routerLink]="opcion.url"
+          (click)="menuLateral.toggle()"
+        >
+          <mat-icon>{{ opcion.icono }}</mat-icon>
+          {{ opcion.titulo }}
+        </div>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button
+        *ngIf="usuarioActual"
+        mat-icon-button
+        (click)="menuLateral.toggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>home</mat-icon>
+      </button>
+      <div class="centrar">Calendario de Festivos</div>
+
+      <div *ngIf="!usuarioActual">
+        <button mat-raised-button (click)="login()">
+          <mat-icon>person</mat-icon>
+          Login
+        </button>
+      </div>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

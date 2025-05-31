@@ -1,45 +1,19 @@
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FestivosService } from '../../../core/services/festivoService/festivos.service';
 import { ReferenciasMaterialModule } from '../../../shared/modulos/referencias-material.module';
+// import { MatDialog } from '@angular/material/dialog'; // Removed as login will be a separate page
+// import { LoginComponent } from '../login/login.component'; // Removed as login will be a separate page
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
   imports: [ReferenciasMaterialModule, HttpClientModule],
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css'] // Cambiar `styleUrl` a `styleUrls`
+  styleUrls: ['./inicio.component.css']
 })
+// Removed login logic as it will be handled by routing to a login page
 export class InicioComponent {
-  fechaSeleccionada: Date = new Date(); // Fecha actual por defecto
-  anioSeleccionado: number = new Date().getFullYear(); // Año actual por defecto
-  isLoading: boolean = false;
-  mensajeResultado: string = '';
+  constructor(/* private dialogServicio: MatDialog */) { }
 
-  constructor(private festivosService: FestivosService) {}
-
-  // Validar si la fecha es festivo
-  validarFecha() {
-    if (!this.fechaSeleccionada) {
-      this.mensajeResultado = 'Por favor seleccione una fecha.';
-      return;
-    }
-
-    this.isLoading = true;
-    this.festivosService.validar(this.fechaSeleccionada).subscribe({
-      next: (esFestivo: boolean) => {
-        this.isLoading = false;
-        this.mensajeResultado = esFestivo
-          ? '¡Es un día festivo! 🎉'
-          : 'No es festivo 😐';
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.mensajeResultado = 'Ocurrió un error al validar la fecha.';
-        console.error('Error al validar fecha:', err);
-      }
-    });
-  }
-
- 
+  // Removed public login() method
 }

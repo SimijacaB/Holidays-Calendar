@@ -1,0 +1,33 @@
+<div class="container">
+    <!-- Validar si una fecha es festiva -->
+    <mat-card>
+      <mat-card-title>Validar fecha específica</mat-card-title>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Seleccione una fecha</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="fechaSeleccionada"
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+  
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="validarFecha()"
+          [disabled]="isLoading"
+        >
+          {{ isLoading ? "Validando..." : "Validar Fecha" }}
+        </button>
+  
+        <!-- Mensaje de resultado (opcional) -->
+        <p *ngIf="mensajeResultado" class="resultado">
+          {{ mensajeResultado }}
+        </p>
+      </mat-card-content>
+    </mat-card>  
+  </div>
+  
