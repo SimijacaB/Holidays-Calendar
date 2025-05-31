@@ -3,9 +3,9 @@ import { RouterOutlet, RouterModule } from '@angular/router';
 import { ReferenciasMaterialModule } from '../shared/modulos/referencias-material.module';
 import { LoginComponent } from '../features/componentes/login/login.component';
 import { AutorizacionService } from '../core/services/autorizacion/autorizacion.service';
-import { UsuarioService } from '../core/services/usuarioService/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioResponseLoginDTO } from '../shared/DTOS/UsuarioResponseLoginDTO';
+import { LoginService } from '../core/services/loginService/login.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,7 @@ export class AppComponent {
 
   constructor(
     private dialogServicio: MatDialog,
-    private usuarioServicio: UsuarioService,
+    private loginService: LoginService,
     private autorizacionServicio: AutorizacionService
   ) { }
 
@@ -44,9 +44,9 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe({
       next: datos => {
         if (datos) {
-          this.usuarioServicio.iniciarSesion(datos.usuario, datos.clave).subscribe({
+          this.loginService.login(datos.usuario, datos.clave).subscribe({
             next: response => {
-              this.usuarioActual = response;
+              this.usuarioActual = { nombreUsuario: response.usuario.nombreUsuario, token: response.token };
               this.autorizacionServicio.guardarToken(response.token);
             },
             error: error => {
