@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { ReferenciasMaterialModule } from '../shared/modulos/referencias-material.module';
 import { LoginComponent } from '../features/componentes/login/login.component';
 import { AutorizacionService } from '../core/services/autorizacion/autorizacion.service';
@@ -14,12 +14,11 @@ import { LoginService } from '../core/services/loginService/login.service';
     RouterOutlet,
     RouterModule,
     ReferenciasMaterialModule,
-
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'FrontedHolidaysCalendar';
 
   public opciones = [
@@ -32,8 +31,20 @@ export class AppComponent {
   constructor(
     private dialogServicio: MatDialog,
     private loginService: LoginService,
-    private autorizacionServicio: AutorizacionService
+    private autorizacionServicio: AutorizacionService,
+    private router: Router
   ) { }
+
+  ngOnInit() {
+    // Verificar si hay un usuario autenticado al iniciar
+    if (this.loginService.isAuthenticated()) {
+      const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+      this.usuarioActual = {
+        nombreUsuario: usuario.nombre,
+        token: localStorage.getItem('token') || ''
+      };
+    }
+  }
 
   public login() {
     const dialogRef = this.dialogServicio.open(LoginComponent, {
@@ -56,5 +67,11 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  public logout() {
+    this.loginService.logout();
+    this.usuarioActual = null;
+    this.router.navigate(['/inicio']);
   }
 }

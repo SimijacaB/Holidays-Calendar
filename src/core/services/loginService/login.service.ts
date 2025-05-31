@@ -25,7 +25,11 @@ export class LoginService {
       tap((response: UsuarioDTO) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('usuario', JSON.stringify(response.usuario));
+          const userInfo = {
+            nombre: response.usuario.nombre,
+            rol: response.usuario.rol
+          };
+          localStorage.setItem('usuario', JSON.stringify(userInfo));
         }
       })
     );
