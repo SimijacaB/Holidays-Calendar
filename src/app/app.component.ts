@@ -22,7 +22,9 @@ export class AppComponent implements OnInit {
   title = 'FrontedHolidaysCalendar';
 
   public opciones = [
-    { titulo: "Festivo", url: "festivos", icono: "calendar_today" },
+    { titulo: "Festivos", url: "festivos", icono: "calendar_today" },
+    { titulo: "Listar por Año", url: "festivos/por-anio", icono: "date_range" },
+    { titulo: "Validar Festivo", url: "festivos/validar", icono: "check_circle" },
     { titulo: "Tipo Festivo", url: "tipo-festivo", icono: "category" }
   ];
 

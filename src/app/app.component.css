@@ -4,19 +4,119 @@
   min-height: 100vh;
 }
 
-header {
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.sidenav-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background-color: #004a9f;
+  color: white;
+}
+
+.sidenav-icon {
+  margin-right: 12px;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.sidenav-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sidenav-list {
+  padding-top: 8px;
+}
+
+.menu-item {
+  margin: 4px 8px;
+}
+
+.menu-item a {
+  border-radius: 4px;
+  margin: 4px 0;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.menu-item a:hover {
+  background-color: rgba(0, 74, 159, 0.04);
+}
+
+.active-link {
+  background-color: rgba(0, 74, 159, 0.12) !important;
+  color: #004a9f !important;
+}
+
+.toolbar {
+  background: #004a9f;
+  color: white;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 2;
 }
 
-.main-content {
-  flex: 1;
-  margin-top: 64px; /* altura del toolbar */
+.toolbar-title {
+  margin-left: 16px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.menu-button {
+  margin-right: 8px;
+}
+
+.auth-button {
+  margin-left: 8px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-name {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.content {
   padding: 20px;
+  margin-top: 64px;
   background-color: #f5f5f5;
+  min-height: calc(100vh - 64px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .sidenav {
+    width: 100%;
+  }
+
+  .user-name {
+    display: none;
+  }
+
+  .toolbar-title {
+    font-size: 16px;
+  }
 }
 
 .footer {
@@ -39,14 +139,9 @@ h1.centrar {
   font-weight: 500;
 }
 
-mat-toolbar {
-    background: #004a9f;
-    color: white;
-}
-
-.centrar{
-    text-align: center; /* Centrar horizontalmente */
-    display: flex; /* Utilizamos flexbox para centrar verticalmente */
-    justify-content: center; /* Centrar horizontalmente con flexbox */
-    width: 100%; /* Ancho completo */
+.centrar {
+  text-align: center; /* Centrar horizontalmente */
+  display: flex; /* Utilizamos flexbox para centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente con flexbox */
+  width: 100%; /* Ancho completo */
 }

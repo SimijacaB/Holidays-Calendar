@@ -8,27 +8,37 @@ import { authGuard } from '../core/guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
-    
-    { 
-        path: 'inicio', 
+
+    {
+        path: 'inicio',
         component: InicioComponent,
-        
     },
-    { 
-        path: 'login', 
-        component: LoginComponent },
-    { 
-        path: 'listar', 
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'festivos',
         component: ListarComponent,
         canActivate: [authGuard]
     },
-    { 
-        path: 'festivo-crud', 
+    {
+        path: 'festivos/por-anio',
+        component: ListarComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'festivos/validar',
+        component: ListarComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'festivo-crud',
         component: FestivoCrudComponent,
         canActivate: [authGuard]
     },
-    { 
-        path: 'tipo-festivo-crud', 
+    {
+        path: 'tipo-festivo-crud',
         component: TipoFestivoCrudComponent,
         canActivate: [authGuard]
     }

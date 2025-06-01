@@ -29,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           // Redirige al login si el token no es válido o expiró
           this.autorizacionServicio.cerrarSesion(); // por ejemplo, elimina el token
-          this.router.navigate([RUTA_DEFAULT]);
+          this.router.navigate(['/inicio']);
         }
         return throwError(() => error);
       })

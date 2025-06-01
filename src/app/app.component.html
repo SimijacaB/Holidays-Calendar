@@ -1,47 +1,67 @@
-<mat-sidenav-container>
-  <mat-sidenav #menuLateral>
-    <mat-nav-list>
-      <div *ngFor="let opcion of opciones">
-        <div
-          class="menu-button"
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #menuLateral mode="side" class="sidenav">
+    <div class="sidenav-header">
+      <mat-icon class="sidenav-icon">calendar_month</mat-icon>
+      <span class="sidenav-title">Calendario</span>
+    </div>
+    <mat-nav-list class="sidenav-list">
+      <div *ngFor="let opcion of opciones" class="menu-item">
+        <a
+          mat-list-item
           [routerLink]="opcion.url"
+          routerLinkActive="active-link"
           (click)="menuLateral.toggle()"
         >
-          <mat-icon>{{ opcion.icono }}</mat-icon>
-          {{ opcion.titulo }}
-        </div>
+          <mat-icon matListItemIcon>{{ opcion.icono }}</mat-icon>
+          <span matListItemTitle>{{ opcion.titulo }}</span>
+        </a>
       </div>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar>
+    <mat-toolbar class="toolbar">
       <button
         *ngIf="usuarioActual"
         mat-icon-button
         (click)="menuLateral.toggle()"
+        class="menu-button"
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button routerLink="/inicio">
         <mat-icon>home</mat-icon>
       </button>
-      <div class="centrar">Calendario de Festivos</div>
+      <span class="toolbar-title">Calendario de Festivos</span>
+      <span class="toolbar-spacer"></span>
 
       <div *ngIf="!usuarioActual">
-        <button mat-raised-button (click)="login()">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="login()"
+          class="auth-button"
+        >
           <mat-icon>person</mat-icon>
           Login
         </button>
       </div>
-      <div *ngIf="usuarioActual">
-        <button mat-raised-button (click)="logout()">
+      <div *ngIf="usuarioActual" class="user-section">
+        <span class="user-name">{{ usuarioActual.nombreUsuario }}</span>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="logout()"
+          class="auth-button"
+        >
           <mat-icon>logout</mat-icon>
           Logout
         </button>
       </div>
     </mat-toolbar>
 
-    <router-outlet></router-outlet>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
