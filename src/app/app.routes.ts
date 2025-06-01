@@ -5,6 +5,7 @@ import { FestivoCrudComponent } from '../features/componentes/festivo-crud/festi
 import { TipoFestivoCrudComponent } from '../features/componentes/tipo-festivo-crud/tipo-festivo-crud.component';
 import { LoginComponent } from '../features/componentes/login/login.component';
 import { authGuard } from '../core/guards/auth.guard';
+import { ValidarFestivoComponent } from '../features/componentes/validar-festivo/validar-festivo.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -29,7 +30,7 @@ export const routes: Routes = [
     },
     {
         path: 'festivos/validar',
-        component: ListarComponent,
+        component: ValidarFestivoComponent,
         canActivate: [authGuard]
     },
     {
